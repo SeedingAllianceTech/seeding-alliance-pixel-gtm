@@ -1,5 +1,5 @@
 homepage: "seeding-alliance.de",
 documentation: "https://seeding-alliance.de/technologie/conversion-tracking/",
 versions:
-  - sha: d8625d7b13405274b921a65e4205e51c85bd7051
-    changeNotes: multiple conversions and allow soft conversions settings
+  - sha: 2d9818e4409653d0b399cc025735c34df62d7b91
+    changeNotes: add categories
