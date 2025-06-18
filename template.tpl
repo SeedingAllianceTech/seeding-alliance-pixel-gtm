@@ -14,6 +14,7 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "displayName": "Seeding Alliance Pixel",
+  "categories": ["MARKETING","CONVERSION_TRACKING","ADVERTISING"],
   "brand": {
     "id": "brand_dummy",
     "displayName": "",
