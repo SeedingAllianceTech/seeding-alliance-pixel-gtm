@@ -1,5 +1,5 @@
 homepage: "seeding-alliance.de",
 documentation: "https://seeding-alliance.de/technologie/conversion-tracking/",
 versions:
-  - sha: 2d9818e4409653d0b399cc025735c34df62d7b91
-    changeNotes: add categories
+  - sha: 1915c86ecf6a91a26fc6713f549c0af7808fcff1
+    changeNotes: remove required validation for custom parameters
