@@ -253,11 +253,7 @@ ___TEMPLATE_PARAMETERS___
             "valueValidators": []
           }
         ],
-        "valueValidators": [
-          {
-            "type": "NON_EMPTY"
-          }
-        ]
+        "valueValidators": []
       }
     ],
     "enablingConditions": [
