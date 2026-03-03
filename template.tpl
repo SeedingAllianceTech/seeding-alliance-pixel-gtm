@@ -321,15 +321,15 @@ const getClickId = () => {
     if (url) {
         id = parseUrl(url).searchParams.nat_clid || '';
     }
-  
+
     if (!id && url.indexOf('#nat_clid') >= 0) {
         id = parseUrl(url).hash.substring(10, parseUrl(url).hash.length);
     }
-  
+
     if (!id) {
         id = getIdFromCookie('nativendo_clid');
     }
-  
+
     return id;
 };
 
@@ -338,7 +338,7 @@ const referrer                  = getUrl() || getReferrerUrl(),
       nativendoClickCookieId    = getIdFromCookie('nativendo_clid'),
       nativendoConsentCookieId  = getIdFromCookie('nativendo_consent'),
       nativendoTrackingEndpoint = data.endpoint || 'nativendo.de';
-      
+
 const cookieOptions = {
     domain   : 'auto',
     path     : '/',
@@ -367,14 +367,16 @@ if (data.event === 'page_view') {
 	if (nativendoClickId) {
         sendPixel(getTrackingUrl('page-view'));
 	}
-  
+
     /**
      * Track page/consent if not done yet or ID changed
      */
-    if (!nativendoConsentCookieId || nativendoConsentCookieId != nativendoClickId) {
-        sendPixel(getTrackingUrl('page-consent'), function() {
-		    setCookie('nativendo_consent', nativendoClickId, cookieOptions, false);
-		});
+    if (nativendoClickId) {
+        if (!nativendoConsentCookieId || nativendoConsentCookieId != nativendoClickId) {
+            sendPixel(getTrackingUrl('page-consent'), function() {
+                setCookie('nativendo_consent', nativendoClickId, cookieOptions, false);
+            });
+        }
     }
 
 	data.gtmOnSuccess();
@@ -391,34 +393,34 @@ if (data.event == 'conversion') {
             order_value     : 'order_value',
             order_currency  : 'order_currency'
         };
-      
+
         let trackingUrl = getTrackingUrl('conversion'),
             properties  = {};
-      
+
         if (typeof data.custom_parameters != 'undefined') {
             data.custom_parameters.forEach((customParameter) => {
                 properties[customParameter.k] = customParameter.v;
             });
         }
-      
+
         Object.keys(customParameterMapping).forEach((customParameter) => {
             if (typeof data[customParameter] != 'undefined') {
                 let customParameterValue = data[customParameter];
-              
+
                 if (customParameter == 'conversion_type') {
                     if (customParameterValue == 'custom' && data.custom_conversion_type) {
                         customParameterValue = data.custom_conversion_type;
                     }
                 }
-                
+
                 properties[customParameterMapping[customParameter]] = customParameterValue;
             }
         });
-      
+
         Object.keys(properties).forEach((k) => {
             trackingUrl += '&conv_properties[' + k + ']=' + encodeUriComponent(properties[k]);
         });
-      
+
         sendPixel(trackingUrl, data.gtmOnSuccess, data.gtmOnFailure);
     } else {
         /**
